@@ -6,6 +6,8 @@ import com.zackku.xspringboot.mvc.annotaion.XRequestBody;
 import com.zackku.xspringboot.mvc.annotaion.XRequestMapping;
 import com.zackku.xspringboot.mvc.annotaion.XRestController;
 import io.vertx.core.http.HttpMethod;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.test.service.TestService;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,6 +19,8 @@ import java.util.Map;
 @XRestController
 @XRequestMapping("/test")
 public class TestController {
+    @Autowired
+    private TestService testService;
 
     @XRequestMapping(value = "/a", method = {HttpMethod.GET, HttpMethod.POST})
     public String a() {
@@ -25,7 +29,7 @@ public class TestController {
 
     @XRequestMapping(value = "/b", method = HttpMethod.GET)
     public String b() {
-        return "hello b";
+        return testService.hello("b");
     }
 
     @XRequestMapping(value = "/c", method = HttpMethod.POST)
